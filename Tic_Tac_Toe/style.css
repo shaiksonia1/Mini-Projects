@@ -31,7 +31,7 @@ body{
     font-size: 8vmin;
     color: #48284A;
 }
-.reset-btn{
+#reset-btn{
     padding: 1rem;
     font-size: 1.25rem;
     background-color: #FFE1C6;
