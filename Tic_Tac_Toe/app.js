@@ -5,6 +5,7 @@ let msgContainer = document.querySelector(".msg-container")
 let msg = document.querySelector("#msg")
 
 let turnO = true; //playerX, playerO
+let count = 0;
 const winpatterns =[
     [0,1,2],
     [0,3,6],
@@ -17,6 +18,7 @@ const winpatterns =[
 ];
 const resetgame =() =>{
     turnO =  true;
+    count=0;
     enableBoxes();
     msgContainer.classList.add("hide")
 }
@@ -30,13 +32,21 @@ boxes.forEach((box)=>{
             box.innerText = "X";
             turnO = true;
         }
-        box.disabled = true;    
+        box.disabled = true;   
+        count++ ; 
         
-        checkwinner();
-
+        let iswinner = checkwinner();
+        if(count === 9 && !iswinner){
+            gameDraw();
+        }
     });
 });
-
+const gameDraw = ()=>{
+    msg.innerText = 'Oops! The Match is Draw :)'
+    msgContainer.classList.remove("hide")
+    disableBoxes();
+ 
+ }
 const disableBoxes = () =>{
     for(let box of boxes){
         box.disabled=true;
@@ -48,6 +58,8 @@ const enableBoxes = () =>{
         box.innerText="";
     }
 }
+
+
 
 const showWinner = (winner) =>{
     msg.innerText = `Congratulations, winner is ${winner}`
@@ -63,6 +75,7 @@ const checkwinner = () =>{
         if(pos1val === pos2val && pos2val === pos3val){
             showWinner(pos1val);
             
+            return true;
         }
     }
     }
